@@ -24,12 +24,9 @@ class ArticleAdminController extends AbstractController
         $form = $this->createForm(ArticleFormType::class);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $article = new Article();
-            $article->setTitle($data['title']);
-            $article->setContent($data['content']);
+            $article = $form->getData();
+            /** @var Article $article */
             $article->setAuthor($this->getUser());
 
             $em->persist($article);
